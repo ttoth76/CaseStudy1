@@ -1,0 +1,208 @@
+---
+title: "CaseStudy1"
+author: "Tamas Toth"
+date: "2/9/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+# Load teh necessary libraries
+library(dplyr)
+library(tidyr)
+library(plyr)
+library(ggplot2)
+library(maps)
+library(mapproj)
+library(sf)
+library(usmap)
+library(urbnmapr)
+library(tidyverse)
+library(mice)
+library(VIM)
+library(lattice)
+```
+```{r}
+#Read the files
+beers = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/Beers.csv', 
+              sep = ',', header = TRUE)
+
+breweries = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/Breweries.csv', 
+              sep = ',', header = TRUE)
+
+beers_missing = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/Beers.csv', 
+              sep = ',', header = TRUE)
+
+```
+
+```{r}
+# verify missing values & white spaces
+sapply(breweries, function(x) sum(is.na(x)))
+sapply(beers, function(x) sum(is.na(x)))
+
+# remove leading and trailing whitespaces
+pattern = "(^ +| +$)"
+replacement = ""
+breweries$State = sub(pattern = pattern, replacement = replacement, x=breweries$State)
+beers$Style = sub(pattern = pattern, replacement = replacement, x=beers$Style)
+```
+
+``` {r}
+# How many breweries are present in each state?
+nbs = breweries %>% group_by(State) %>% dplyr::summarise(nobrews = n())
+table(breweries$State)
+
+#diplay this on a map
+# Data prep
+us_map_fips = fips_info()
+names(nbs)[names(nbs) == 'State'] = 'abbr'
+nbs_map_data = merge(nbs, us_map_fips, 'abbr')
+
+names(nbs_map_data)[names(nbs_map_data) == 'abbr'] = 'state_abbv'
+
+#create state shape file
+states_shape = get_urbn_map(map = "states", sf = TRUE)
+# calculate the geo centroid of each state
+center_states = st_centroid(states_shape)
+# get longitude and latitude data
+lan_lat = str_replace_all(center_states$geometry, "[()]", "")
+lan_lat_noc = str_replace_all(lan_lat, "c", "")
+center_states = mutate(center_states, lan = str_split_fixed(lan_lat_noc, ",", n=2)[,1])
+center_states = mutate(center_states, lat = str_split_fixed(lan_lat_noc, ",", n=2)[,2])
+center_states$lan = as.numeric(center_states$lan)
+center_states$lat = as.numeric(center_states$lat)
+#add latitude and longitude data to breweris dataset
+nbs_map_data_sf = merge(nbs_map_data, center_states, by = "state_abbv")
+
+# Plot the result (using budwiser logo colors)
+plot_usmap(data = nbs_map_data_sf, values = "nobrews", regions = "states", 
+           labels = TRUE, label_color = "black") + 
+  labs(title = "U.S. States",
+       subtitle = "Number of Budweiser Breweries by State") + 
+  scale_fill_continuous(low = "white", high ="#C8102E", 
+  name = "# of breweries",label = scales::comma) + 
+  theme(legend.position = "right") +
+  theme(panel.background=element_blank()) +
+  ggrepel::geom_label_repel(data = nbs_map_data_sf,
+             aes(x = lan, y = lat, label = nobrews),
+             size = 3, alpha = 0.8,
+             label.r = unit(0.5, "lines"), label.size = 0.5,
+             segment.color = "red", segment.size = 1,
+             seed = 1002) 
+  
+
+# UNDER CONSTRUCTION  
+#Plot DC and neighboring states separately  !!! add lables !!!
+  plot_usmap(data = nbs_map_data_sf, values = "nobrews",include = c("DC", "MD", "VA"),              labels = TRUE, label_color = "white") +
+  labs(title = "District of Columbia") +
+  theme(panel.background = element_rect(color = "blue")) 
+```
+
+```{r}
+# Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.  
+#brew_beers = left_join(beers, breweries, by = c("Brewery_id" = "Brew_ID"))
+#sample_n(brew_beers, 10)
+#head(brew_beers, n=6)
+#tail(brew_beers, n=6)
+
+## test alternative merge
+names(breweries)[names(breweries) == 'Brew_ID'] = 'Brewery_id'
+brew_beers = merge(breweries, beers, by = "Brewery_id")
+# rename features after merge
+names(brew_beers)[names(brew_beers) == 'Name.x'] = 'Brewery_Name'
+names(brew_beers)[names(brew_beers) == 'Name.y'] = 'Beer_Name'
+sample_n(brew_beers, 10)
+head(brew_beers, n=6)
+tail(brew_beers, n=6)
+#same as left join
+```
+
+```{r}
+# Address the missing values in each column.
+sapply(brew_beers, function(x) sum(is.na(x)))
+
+# Impute median IBU value by Style groups 
+# (I assume the IBU values are more similar in each style group therefore
+# I don't take the median of all the beers' IBU but much rather grouping them by Style and calculate the 
+# median). Same for the ABV content.
+brew_beers = brew_beers %>%
+   group_by(Style) %>%
+   mutate(IBU = replace(IBU,is.na(IBU), median(IBU, na.rm = TRUE)))
+
+# Impute median ABV value by Style groups
+brew_beers = brew_beers %>%
+   group_by(Style) %>%
+   mutate(ABV = replace(ABV,is.na(ABV), median(ABV, na.rm = TRUE)))
+
+# convert the tibble to data frame
+brew_beers = as.data.frame(brew_beers)
+
+# get a random sample of the data frame
+sample_n(brew_beers, 15)
+
+##### MEDIAN IMPUTATION firts approach
+#brew_beers$ABV[is.na(brew_beers$ABV)] = median(brew_beers$ABV, na.rm = TRUE)
+#brew_beers$IBU[is.na(brew_beers$IBU)] = round(median(brew_beers$IBU, na.rm = TRUE), 0)
+```
+
+
+```{r}
+# Compute the median alcohol content and international bitterness unit for each state. 
+# Plot a bar chart to compare.
+
+# ABV Median Values by State
+
+ABV_IBU_State = brew_beers %>%                                      
+  group_by(State) %>%                       
+  summarise_at(vars(ABV, IBU),            
+               list(name = median))
+
+ABV_IBU_State = as.data.frame(ABV_IBU_State)
+
+ggplot(ABV_IBU_State, aes(x=State, y = ABV_name, fill = State)) + 
+  geom_bar(stat = 'identity') + 
+  ggtitle('ABV Median Values by State') + 
+  geom_text(aes(label = ABV_name), vjust = -1, 
+            data = ABV_IBU_State) +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  xlab("States") + ylab("median")+
+  theme_pander() +
+  scale_fill_pander() + coord_flip() + 
+  theme(legend.position = "none")
+
+#IBU Median Values by State
+ggplot(ABV_IBU_State, aes(x=State, y = IBU_name, fill = State)) + 
+  geom_bar(stat = 'identity') + 
+  ggtitle('IBU Median Values by State') + 
+  geom_text(aes(label = IBU_name), hjust = -0.3, 
+            data = ABV_IBU_State) +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  xlab("States") + ylab("Median")+
+  theme_pander() +
+  scale_fill_pander() +
+  theme(legend.position = "none") + coord_flip()
+```
+
+```{r}
+#Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
+brew_beers[which.max(brew_beers$ABV),]
+brew_beers[which.max(brew_beers$IBU),]
+```
+
+```{r}
+# Comment on the summary statistics and distribution of the ABV variable.
+summary(brew_beers$ABV)
+histogram(brew_beers$ABV)
+```
+
+```{r}
+# Is there an apparent relationship between the bitterness of the beer and its alcoholic content? 
+# Draw a scatter plot.  Make your best judgment of a relationship and EXPLAIN your answer.
+brew_beers %>% 
+ggplot(aes(x = ABV, y = IBU)) + geom_point() + 
+  geom_smooth(method = "lm") + ggtitle("Correlation between IBU and ABV") + 
+  xlab("ABV") + ylab("IBU") + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+    scale_colour_manual(values=c("red", "blue"))
