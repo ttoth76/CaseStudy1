@@ -1,5 +1,5 @@
 # CaseStudy1
-SMU Case study brewery analysis
+SMU Case study brewery analysis - to be updated
 
 MSDS 6306: Doing Data Science - Case Study 01
 
