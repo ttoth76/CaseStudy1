@@ -602,5 +602,5 @@ To conclude that, US has largest collection of breweries vary by states. Some st
 - CO is producing the highest alcohol content beer
 - OR is producing the most bitter beer
 - Product portfolio is mostly comprised of mild alcohol content beers
-- We can observe a relationship between alcohol content and bitterness. One unit increase in alcohol content is associated with bitternes.
+- We can observe a relationship between alcohol content and bitterness. One unit increase in alcohol content is associated with bitterness.
 
