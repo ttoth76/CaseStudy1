@@ -20,7 +20,7 @@ output:
   hard_line_breaks: TRUE
   pandoc_args: NULL
   html_preview: TRUE
-  keep_html: FALSE
+  keep_html: TRUE
 always_allow_html: true
 editor_options: 
   chunk_output_type: console
@@ -186,9 +186,7 @@ $~$
 
 ```{r results='asis', echo=FALSE}
 nbs_df = arrange(nbs_df, desc(nobrews))
-#rmarkdown::paged_table(nbs_df)
 knitr::kable(head(nbs_df, n=10), "html")
-#head(nbs_df, n=10)
 ```
 
 $~$
@@ -236,13 +234,13 @@ names(brew_beers)[names(brew_beers) == 'Name.y'] = 'Beer_Name'
 #### First 6 observations
 
 ```{r}
-head(brew_beers, n=6)
+knitr::kable(head(brew_beers, n=6), "html")
 ```
 
 #### Last 6 observations
 
 ```{r}
-tail(brew_beers, n=6)
+knitr::kable(tail(brew_beers, n=6), "html")
 ```
 
 #### A2: Merged the data from both data sets and renamed some of the fetures to more meaningful names. The key I used for the merge is: 'Brewery_id'.

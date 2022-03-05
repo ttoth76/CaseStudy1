@@ -378,44 +378,496 @@ names(brew_beers)[names(brew_beers) == 'Name.y'] = 'Beer_Name'
 #### First 6 observations
 
 ``` r
-head(brew_beers, n=6)
+knitr::kable(head(brew_beers, n=6), "html")
 ```
 
-    ##   Brewery_id       Brewery_Name        City State     Beer_Name Beer_ID   ABV
-    ## 1          1 NorthGate Brewing  Minneapolis    MN       Pumpion    2689 0.060
-    ## 2          1 NorthGate Brewing  Minneapolis    MN    Stronghold    2688 0.060
-    ## 3          1 NorthGate Brewing  Minneapolis    MN   Parapet ESB    2687 0.056
-    ## 4          1 NorthGate Brewing  Minneapolis    MN  Get Together    2692 0.045
-    ## 5          1 NorthGate Brewing  Minneapolis    MN Maggie's Leap    2691 0.049
-    ## 6          1 NorthGate Brewing  Minneapolis    MN    Wall's End    2690 0.048
-    ##   IBU                               Style Ounces
-    ## 1  38                         Pumpkin Ale     16
-    ## 2  25                     American Porter     16
-    ## 3  47 Extra Special / Strong Bitter (ESB)     16
-    ## 4  50                        American IPA     16
-    ## 5  26                  Milk / Sweet Stout     16
-    ## 6  19                   English Brown Ale     16
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Brewery_id
+</th>
+<th style="text-align:left;">
+Brewery_Name
+</th>
+<th style="text-align:left;">
+City
+</th>
+<th style="text-align:left;">
+State
+</th>
+<th style="text-align:left;">
+Beer_Name
+</th>
+<th style="text-align:right;">
+Beer_ID
+</th>
+<th style="text-align:right;">
+ABV
+</th>
+<th style="text-align:right;">
+IBU
+</th>
+<th style="text-align:left;">
+Style
+</th>
+<th style="text-align:right;">
+Ounces
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NorthGate Brewing
+</td>
+<td style="text-align:left;">
+Minneapolis
+</td>
+<td style="text-align:left;">
+MN
+</td>
+<td style="text-align:left;">
+Pumpion
+</td>
+<td style="text-align:right;">
+2689
+</td>
+<td style="text-align:right;">
+0.060
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:left;">
+Pumpkin Ale
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NorthGate Brewing
+</td>
+<td style="text-align:left;">
+Minneapolis
+</td>
+<td style="text-align:left;">
+MN
+</td>
+<td style="text-align:left;">
+Stronghold
+</td>
+<td style="text-align:right;">
+2688
+</td>
+<td style="text-align:right;">
+0.060
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:left;">
+American Porter
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NorthGate Brewing
+</td>
+<td style="text-align:left;">
+Minneapolis
+</td>
+<td style="text-align:left;">
+MN
+</td>
+<td style="text-align:left;">
+Parapet ESB
+</td>
+<td style="text-align:right;">
+2687
+</td>
+<td style="text-align:right;">
+0.056
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:left;">
+Extra Special / Strong Bitter (ESB)
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NorthGate Brewing
+</td>
+<td style="text-align:left;">
+Minneapolis
+</td>
+<td style="text-align:left;">
+MN
+</td>
+<td style="text-align:left;">
+Get Together
+</td>
+<td style="text-align:right;">
+2692
+</td>
+<td style="text-align:right;">
+0.045
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+American IPA
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NorthGate Brewing
+</td>
+<td style="text-align:left;">
+Minneapolis
+</td>
+<td style="text-align:left;">
+MN
+</td>
+<td style="text-align:left;">
+Maggie’s Leap
+</td>
+<td style="text-align:right;">
+2691
+</td>
+<td style="text-align:right;">
+0.049
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:left;">
+Milk / Sweet Stout
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+NorthGate Brewing
+</td>
+<td style="text-align:left;">
+Minneapolis
+</td>
+<td style="text-align:left;">
+MN
+</td>
+<td style="text-align:left;">
+Wall’s End
+</td>
+<td style="text-align:right;">
+2690
+</td>
+<td style="text-align:right;">
+0.048
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+English Brown Ale
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+</tbody>
+</table>
 
 #### Last 6 observations
 
 ``` r
-tail(brew_beers, n=6)
+knitr::kable(tail(brew_beers, n=6), "html")
 ```
 
-    ##      Brewery_id                  Brewery_Name          City State
-    ## 2405        556         Ukiah Brewing Company         Ukiah    CA
-    ## 2406        557       Butternuts Beer and Ale Garrattsville    NY
-    ## 2407        557       Butternuts Beer and Ale Garrattsville    NY
-    ## 2408        557       Butternuts Beer and Ale Garrattsville    NY
-    ## 2409        557       Butternuts Beer and Ale Garrattsville    NY
-    ## 2410        558 Sleeping Lady Brewing Company     Anchorage    AK
-    ##                      Beer_Name Beer_ID   ABV IBU                   Style Ounces
-    ## 2405             Pilsner Ukiah      98 0.055  NA         German Pilsener     12
-    ## 2406         Porkslap Pale Ale      49 0.043  NA American Pale Ale (APA)     12
-    ## 2407           Snapperhead IPA      51 0.068  NA            American IPA     12
-    ## 2408         Moo Thunder Stout      50 0.049  NA      Milk / Sweet Stout     12
-    ## 2409  Heinnieweisse Weissebier      52 0.049  NA              Hefeweizen     12
-    ## 2410 Urban Wilderness Pale Ale      30 0.049  NA        English Pale Ale     12
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Brewery_id
+</th>
+<th style="text-align:left;">
+Brewery_Name
+</th>
+<th style="text-align:left;">
+City
+</th>
+<th style="text-align:left;">
+State
+</th>
+<th style="text-align:left;">
+Beer_Name
+</th>
+<th style="text-align:right;">
+Beer_ID
+</th>
+<th style="text-align:right;">
+ABV
+</th>
+<th style="text-align:right;">
+IBU
+</th>
+<th style="text-align:left;">
+Style
+</th>
+<th style="text-align:right;">
+Ounces
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2405
+</td>
+<td style="text-align:right;">
+556
+</td>
+<td style="text-align:left;">
+Ukiah Brewing Company
+</td>
+<td style="text-align:left;">
+Ukiah
+</td>
+<td style="text-align:left;">
+CA
+</td>
+<td style="text-align:left;">
+Pilsner Ukiah
+</td>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+0.055
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+German Pilsener
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2406
+</td>
+<td style="text-align:right;">
+557
+</td>
+<td style="text-align:left;">
+Butternuts Beer and Ale
+</td>
+<td style="text-align:left;">
+Garrattsville
+</td>
+<td style="text-align:left;">
+NY
+</td>
+<td style="text-align:left;">
+Porkslap Pale Ale
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+0.043
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+American Pale Ale (APA)
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2407
+</td>
+<td style="text-align:right;">
+557
+</td>
+<td style="text-align:left;">
+Butternuts Beer and Ale
+</td>
+<td style="text-align:left;">
+Garrattsville
+</td>
+<td style="text-align:left;">
+NY
+</td>
+<td style="text-align:left;">
+Snapperhead IPA
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+0.068
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+American IPA
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2408
+</td>
+<td style="text-align:right;">
+557
+</td>
+<td style="text-align:left;">
+Butternuts Beer and Ale
+</td>
+<td style="text-align:left;">
+Garrattsville
+</td>
+<td style="text-align:left;">
+NY
+</td>
+<td style="text-align:left;">
+Moo Thunder Stout
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+0.049
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+Milk / Sweet Stout
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2409
+</td>
+<td style="text-align:right;">
+557
+</td>
+<td style="text-align:left;">
+Butternuts Beer and Ale
+</td>
+<td style="text-align:left;">
+Garrattsville
+</td>
+<td style="text-align:left;">
+NY
+</td>
+<td style="text-align:left;">
+Heinnieweisse Weissebier
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+0.049
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+Hefeweizen
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2410
+</td>
+<td style="text-align:right;">
+558
+</td>
+<td style="text-align:left;">
+Sleeping Lady Brewing Company
+</td>
+<td style="text-align:left;">
+Anchorage
+</td>
+<td style="text-align:left;">
+AK
+</td>
+<td style="text-align:left;">
+Urban Wilderness Pale Ale
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0.049
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+English Pale Ale
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+</tbody>
+</table>
 
 #### A2: Merged the data from both data sets and renamed some of the fetures to more meaningful names. The key I used for the merge is: ‘Brewery_id’.
 
