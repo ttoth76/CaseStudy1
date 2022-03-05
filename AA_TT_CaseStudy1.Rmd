@@ -730,6 +730,7 @@ unique_percapita %>%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
+
 ##### It seem that there is an inverse relationship between Number of unique beers per capita and the number of breweries. As the number of breweries decrease the number of unique beers per capita per million people increase. 
 
 $~$

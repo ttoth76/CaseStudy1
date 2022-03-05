@@ -1647,9 +1647,9 @@ confusionMatrix(table(fit, test$Style))
 
 ##### I have tuned the KNN model by finding the most optimal k-value by selecting the one with the highest Accuracy value out of 100 iterations.
 
-##### Based on the confusion matrix above, we have been able to correctly classify 243 Ale and 127 IPA style beers. Overall accuracy of the prediction is \~80% which underpins the previous conclusions about ABV and IBU are being good predictors to determin the style of the beer.
+##### Based on the confusion matrix above, we have been able to correctly classify 258 Ale and 126 IPA style beers. Overall accuracy of the prediction is \~83% which underpins the previous conclusions about ABV and IBU are being good predictors to determin the style of the beer.
 
-##### The misclassification rate is 38/460 = 0.083 (8.3%).
+##### The misclassification rate is 78/462 = 0.1688 (17%).
 
  
 
@@ -1818,10 +1818,8 @@ unique_percapita %>%
 ```
 
 ![](AA_TT_CaseStudy1_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
-\##### It seem that there is an inverse relationship between Number of
-unique beers per capita and the number of breweries. As the number of
-breweries decrease the number of unique beers per capita per million
-people increase.
+
+##### It seem that there is an inverse relationship between Number of unique beers per capita and the number of breweries. As the number of breweries decrease the number of unique beers per capita per million people increase.
 
  
 
@@ -1885,7 +1883,7 @@ people increase.
 
 ##### -Built a KNN model to investigate the difference with respect to IBU and ABV between IPAs and Ales.
 
-##### -The KNN model predicted the beer style classes with \~80% accuracy and 8.3% misclassification rate.
+##### -The KNN model predicted the beer style classes with \~83% accuracy and 17% misclassification rate.
 
 ##### -This KNN model generalizes well on this data set and we can conclude that ABV and IBU are good verables predicting the sytle of the beers.
 
