@@ -94,6 +94,9 @@ beers_consumption = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/beer_co
 
 favorite_beer = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/fav_beer_state.csv', 
               sep = ',', header = TRUE)
+
+population_by_state = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/SCPRC-EST2019-18+POP-RES.csv', 
+              sep = ',', header = TRUE)
 ```
 
 $~$
@@ -186,7 +189,7 @@ $~$
 
 ```{r results='asis', echo=FALSE}
 nbs_df = arrange(nbs_df, desc(nobrews))
-knitr::kable(head(nbs_df, n=10), "html")
+knitr::kable(nbs_df, "html")
 ```
 
 $~$
@@ -256,7 +259,6 @@ sapply(brew_beers, function(x) sum(x == ""))
 # There are 5 empty values in the Style column
 # Let's replace them with NA and impute mode()
 brew_beers$Style[brew_beers$Style == ""] = NA
-brew_beers$Style[is.na(brew_beers$Style)] = median(brew_beers$ABV, na.rm = TRUE)
 
 # Calculate mode for imputation
 styles = unique(brew_beers$Style[!is.na(brew_beers$Style)])
@@ -292,7 +294,7 @@ brew_beers = as.data.frame(brew_beers)
 
 $~$
 
-#### Extra insight about number of uniqe beers produced by Budweiser and contrasting it with the state where the highest number of breweries are.
+#### Extra insight about number of uniqe beers produced by Budweiser and contrasting it with the state where the highest number of breweries are (Colorado).
 
 ```{r total_uniq_style, prod_co, results='asis'}
 # Number of unique bear styles and how many of these are from Colorado where the highest number of breweries are
@@ -301,7 +303,8 @@ total_uniq_style = sum(count(unique(brew_beers$Style))[2])
 prod_co = sum(count(unique(most_brew$Style))[2])
 cat(paste0("The total number of unique style beers produced: ", total_uniq_style, "\n"),sep = "\n")
 cat(paste0("Number of unique style beers produced in Colorado: ", prod_co, "\n"),sep = "\n")
-cat(paste0("Colorado is producting ", prod_co/total_uniq_style*100, "% of the total beer styles.\n"),sep = "\n")
+cat(paste0("Colorado is producting ", round(prod_co/total_uniq_style*100,2), "% of the total beer styles.\n"),sep = "\n")
+
 ```
 
 $~$
@@ -595,9 +598,9 @@ confusionMatrix(table(fit, test$Style))
 
 ##### I have tuned the KNN model by finding the most optimal k-value by selecting the one with the highest Accuracy value out of 100 iterations.
 
-##### Based on the confusion matrix above, we have been able to correctly classify 243 Ale and 127 IPA style beers. Overall accuracy of the prediction is \~80% which underpins the previous conclusions about ABV and IBU are being good predictors to determin the style of the beer.
+##### Based on the confusion matrix above, we have been able to correctly classify 258 Ale and 126 IPA style beers. Overall accuracy of the prediction is \~83% which underpins the previous conclusions about ABV and IBU are being good predictors to determin the style of the beer.
 
-##### The misclassification rate is 38/460 = 0.083 (8.3%).
+##### The misclassification rate is 78/462 = 0.1688 (17%).
 
 $~$
 
@@ -693,6 +696,44 @@ names(fav_beer_bud)[names(fav_beer_bud) == 'fips.x'] = 'fips'
 
 $~$
 
+##### Let's look at number of unique beers per capita by the states and contrst it with the # of breweries.
+```{r}
+# prepare data, merge data frames with State abbr and full names as well as the unique beer information
+# data source: https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-detail.html
+unique_beers = brew_beers %>% group_by(State, Style) %>% dplyr::summarize(Style_n = n())
+unique_beer_state = unique_beers %>% group_by(State)%>% dplyr::summarize(Style_n = n())
+unique_beer_state = as.data.frame(unique_beer_state)
+names(population_by_state)[names(population_by_state) == 'NAME'] = 'full'
+temp_pop = merge(population_by_state,us_map_fips,'full')
+unique_percapita = merge(temp_pop,unique_beer_state,'State', 'abbr')
+unique_percapita = merge(unique_percapita,nbs_df,'State', 'abbr')
+# reduce dimension to the ones needed for the analysis
+unique_percapita = subset(unique_percapita, select = -c(SUMLEV, REGION, DIVISION, STATE, POPESTIMATE2019, PCNT_POPEST18PLUS))
+
+# calculate of unique beers per capita
+unique_percapita$percapita = unique_percapita$Style_n/(unique_percapita$POPEST18PLUS2019/1000000)
+unique_percapita = arrange(unique_percapita, percapita)
+
+# Plot the comparison of per capita vs # of breweries
+unique_percapita %>%
+ ggplot() + 
+  geom_bar(data = unique_percapita, aes(x=abbr, y=nobrews), stat="identity", fill = '#C8102E') +
+  geom_point(data = unique_percapita, aes(x=abbr, y=percapita), size = 2, color = '#061148') +
+  geom_line(data = unique_percapita, aes(x=abbr, y=percapita, lty = '# of unique beers per capita'), color = '#061148', size = 1, group = 1, na.rm = TRUE) +
+  scale_linetype('') +
+  scale_y_continuous(name = 'Number of breweries',
+                     sec.axis = sec_axis(~.*1, name = 'Number of unique beers per capita per million people')) +
+  labs(title = 'Number of unique beers per capita vs number of breweries by state',        
+       subtitle = 'Population data by Census 2019',
+       x = 'States',
+       fill = '') +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+##### It seem that there is an inverse relationship between Number of unique beers per capita and the number of breweries. As the number of breweries decrease the number of unique beers per capita per million people increase. 
+
+$~$
+
 #### **Summary**
 
 ##### - Used 4 data sets for the analysis.
@@ -708,8 +749,8 @@ $~$
 ##### 4. OR - 29
 ##### 5. TX - 28
 ##### -ND, NH and MT are the states with the highest amount of beer consumption per capita per state. Contrary to this, Budweiser have very low number of breweries in these states.
-##### -The total number of unique style beers produced by Budweiser is 100.
-##### -Number of unique style beers produced in Colorado: 61
+##### -The total number of unique style beers produced by Budweiser is 99.
+##### -Number of unique style beers produced in Colorado: 60
 ##### -Colorado is producting 61% of the total beer styles Budweiser has in its portfolio.
 ##### -Median ABV values by state are uniformly distributed and ranging between 4% and 6%.
 ##### -Median IBU values by state are uniformly distributed and ranging between 22 and 57.5.
@@ -724,11 +765,12 @@ $~$
 ##### 7. There is no reason to believe that the ABV data set is not coming from a normal distribution.
 ##### -There is a positive linear relationship between ABV and IBU. The beer alcohol content increase is associated with the bitterness. \~26% of the variance in IBU can be explained by changes in ABV.
 ##### -Built a KNN model to investigate the difference with respect to IBU and ABV between IPAs and Ales.
-##### -The KNN model predicted the beer style classes with \~80% accuracy and 8.3% misclassification rate.
+##### -The KNN model predicted the beer style classes with \~83% accuracy and 17% misclassification rate.
 ##### -This KNN model generalizes well on this data set and we can conclude that ABV and IBU are good verables predicting the sytle of the beers.
 ##### -The model predicts ALEs with IBU above 95 and ABV above 0.06 as IPA. It seems like that a more bitter and stringer beer would represent IPA rather than ALE for the model. IPAs are predicted more consistantly however some of the lower alcohol content and lower IBU IPAs are predicted as ALEs.
 ##### -Built a Naive Bayes model for the prediction but the model performance was not as good as the KNN one therefore I did not pursue this model further.
 ##### -Budweiser is the most popular beer in 23 states.
+##### It seem that there is an inverse relationship between Number of unique beers per capita and the number of breweries. As the number of breweries decrease the number of unique beers per capita per million people increase.
 
 $~$
 
@@ -741,5 +783,6 @@ $~$
 ##### 3. Study the beer styles to see if there is a need to reclassify some of the beers from IPA to Ale and vice versa based on ABV and IBU values. This could better represent product quality and beer taste which in return could result in more customers.
 
 ##### 4. I can see opportunities for Budweiser to further increase their presence in those states where their beer is the most popular by increasing the number of breweries. Budweiser has very low number of breweries in these states however consumption is the highest and Budweiser is the most popular beer: MT, SD, NH, WV, IA and SC. Further to the potential increase in sales in these states the supply chain cost may be reduced as well by local distributions.
+##### 5. I would suggest to analyse the relationship between the number of breweries and unique beers per capita per million people and increase the variety of beers in those states where the number of unique beers are low per capita per million people.
 
 $~$

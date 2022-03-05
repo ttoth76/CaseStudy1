@@ -138,6 +138,9 @@ beers_consumption = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/beer_co
 
 favorite_beer = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/fav_beer_state.csv', 
               sep = ',', header = TRUE)
+
+population_by_state = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/SCPRC-EST2019-18+POP-RES.csv', 
+              sep = ',', header = TRUE)
 ```
 
  
@@ -327,6 +330,334 @@ WI
 </td>
 <td style="text-align:right;">
 20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NC
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IL
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NY
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VA
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FL
+</td>
+<td style="text-align:right;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OH
+</td>
+<td style="text-align:right;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MN
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AZ
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VT
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ME
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MO
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MT
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CT
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AK
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GA
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MD
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OK
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IA
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ID
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LA
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NE
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RI
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HI
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+KY
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NM
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SC
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+UT
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WY
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+KS
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NH
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NJ
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TN
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AR
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DE
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MS
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NV
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DC
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ND
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SD
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WV
+</td>
+<td style="text-align:right;">
+1
 </td>
 </tr>
 </tbody>
@@ -898,7 +1229,6 @@ sapply(brew_beers, function(x) sum(x == ""))
 # There are 5 empty values in the Style column
 # Let's replace them with NA and impute mode()
 brew_beers$Style[brew_beers$Style == ""] = NA
-brew_beers$Style[is.na(brew_beers$Style)] = median(brew_beers$ABV, na.rm = TRUE)
 
 # Calculate mode for imputation
 styles = unique(brew_beers$Style[!is.na(brew_beers$Style)])
@@ -934,7 +1264,7 @@ brew_beers = as.data.frame(brew_beers)
 
  
 
-#### Extra insight about number of uniqe beers produced by Budweiser and contrasting it with the state where the highest number of breweries are.
+#### Extra insight about number of uniqe beers produced by Budweiser and contrasting it with the state where the highest number of breweries are (Colorado).
 
 ``` r
 # Number of unique bear styles and how many of these are from Colorado where the highest number of breweries are
@@ -944,19 +1274,19 @@ prod_co = sum(count(unique(most_brew$Style))[2])
 cat(paste0("The total number of unique style beers produced: ", total_uniq_style, "\n"),sep = "\n")
 ```
 
-The total number of unique style beers produced: 100
+The total number of unique style beers produced: 99
 
 ``` r
 cat(paste0("Number of unique style beers produced in Colorado: ", prod_co, "\n"),sep = "\n")
 ```
 
-Number of unique style beers produced in Colorado: 61
+Number of unique style beers produced in Colorado: 60
 
 ``` r
-cat(paste0("Colorado is producting ", prod_co/total_uniq_style*100, "% of the total beer styles.\n"),sep = "\n")
+cat(paste0("Colorado is producting ", round(prod_co/total_uniq_style*100,2), "% of the total beer styles.\n"),sep = "\n")
 ```
 
-Colorado is producting 61% of the total beer styles.
+Colorado is producting 60.61% of the total beer styles.
 
  
 
@@ -1211,7 +1541,7 @@ IPA_percent = (count(data_for_modeling[data_for_modeling$Style == 'IPA','Style']
 cat(paste0('There are ', IPA_count, " IPA style beers in the data set", "\n"),sep = "\n")
 ```
 
-    ## There are 571 IPA style beers in the data set
+    ## There are 576 IPA style beers in the data set
 
 ``` r
 # 70/30 split of the data set to train the models:
@@ -1253,13 +1583,13 @@ t.test(data_for_modeling$ABV, data_for_modeling$IBU, alternative = 'two.sided', 
     ##  Welch Two Sample t-test
     ## 
     ## data:  data_for_modeling$ABV and data_for_modeling$IBU
-    ## t = -79.068, df = 1533, p-value < 2.2e-16
+    ## t = -79.187, df = 1538, p-value < 2.2e-16
     ## alternative hypothesis: true difference in means is not equal to 0
     ## 95 percent confidence interval:
-    ##  -45.23597 -43.04587
+    ##  -45.18904 -43.00445
     ## sample estimates:
     ##   mean of x   mean of y 
-    ##  0.06116428 44.20208605
+    ##  0.06114815 44.15789474
 
 ##### We have enough evidence to suggest that the IBU and ABV mean values are different and thus these two variables are good predictors for beer Style. (p-value \< 2.2e-16 )
 
@@ -1289,26 +1619,26 @@ confusionMatrix(table(fit, test$Style))
     ## 
     ##      
     ## fit   Ale IPA
-    ##   Ale 243  52
-    ##   IPA  38 127
+    ##   Ale 258  41
+    ##   IPA  37 126
     ##                                           
-    ##                Accuracy : 0.8043          
-    ##                  95% CI : (0.7651, 0.8396)
-    ##     No Information Rate : 0.6109          
+    ##                Accuracy : 0.8312          
+    ##                  95% CI : (0.7938, 0.8642)
+    ##     No Information Rate : 0.6385          
     ##     P-Value [Acc > NIR] : <2e-16          
     ##                                           
-    ##                   Kappa : 0.5825          
+    ##                   Kappa : 0.6324          
     ##                                           
-    ##  Mcnemar's Test P-Value : 0.1706          
+    ##  Mcnemar's Test P-Value : 0.7341          
     ##                                           
-    ##             Sensitivity : 0.8648          
-    ##             Specificity : 0.7095          
-    ##          Pos Pred Value : 0.8237          
-    ##          Neg Pred Value : 0.7697          
-    ##              Prevalence : 0.6109          
-    ##          Detection Rate : 0.5283          
-    ##    Detection Prevalence : 0.6413          
-    ##       Balanced Accuracy : 0.7871          
+    ##             Sensitivity : 0.8746          
+    ##             Specificity : 0.7545          
+    ##          Pos Pred Value : 0.8629          
+    ##          Neg Pred Value : 0.7730          
+    ##              Prevalence : 0.6385          
+    ##          Detection Rate : 0.5584          
+    ##    Detection Prevalence : 0.6472          
+    ##       Balanced Accuracy : 0.8145          
     ##                                           
     ##        'Positive' Class : Ale             
     ## 
@@ -1381,28 +1711,28 @@ model = naiveBayes(train[,c('ABV','IBU')],train$Style)
     ## 
     ##      
     ##       Ale IPA
-    ##   Ale 260  76
-    ##   IPA  21 103
-    ##                                          
-    ##                Accuracy : 0.7891         
-    ##                  95% CI : (0.749, 0.8255)
-    ##     No Information Rate : 0.6109         
-    ##     P-Value [Acc > NIR] : < 2.2e-16      
-    ##                                          
-    ##                   Kappa : 0.5303         
-    ##                                          
-    ##  Mcnemar's Test P-Value : 4.185e-08      
-    ##                                          
-    ##             Sensitivity : 0.9253         
-    ##             Specificity : 0.5754         
-    ##          Pos Pred Value : 0.7738         
-    ##          Neg Pred Value : 0.8306         
-    ##              Prevalence : 0.6109         
-    ##          Detection Rate : 0.5652         
-    ##    Detection Prevalence : 0.7304         
-    ##       Balanced Accuracy : 0.7503         
-    ##                                          
-    ##        'Positive' Class : Ale            
+    ##   Ale 261  66
+    ##   IPA  34 101
+    ##                                           
+    ##                Accuracy : 0.7835          
+    ##                  95% CI : (0.7432, 0.8203)
+    ##     No Information Rate : 0.6385          
+    ##     P-Value [Acc > NIR] : 1.079e-11       
+    ##                                           
+    ##                   Kappa : 0.5108          
+    ##                                           
+    ##  Mcnemar's Test P-Value : 0.001935        
+    ##                                           
+    ##             Sensitivity : 0.8847          
+    ##             Specificity : 0.6048          
+    ##          Pos Pred Value : 0.7982          
+    ##          Neg Pred Value : 0.7481          
+    ##              Prevalence : 0.6385          
+    ##          Detection Rate : 0.5649          
+    ##    Detection Prevalence : 0.7078          
+    ##       Balanced Accuracy : 0.7448          
+    ##                                           
+    ##        'Positive' Class : Ale             
     ## 
 
 ##### The accuracy of the NB model is not as good as the KNN model so I will not investigate this solution further.
@@ -1446,6 +1776,55 @@ names(fav_beer_bud)[names(fav_beer_bud) == 'fips.x'] = 'fips'
 
  
 
+##### Let’s look at number of unique beers per capita by the states and contrst it with the \# of breweries.
+
+``` r
+# prepare data, merge data frames with State abbr and full names as well as the unique beer information
+# data source: https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-detail.html
+unique_beers = brew_beers %>% group_by(State, Style) %>% dplyr::summarize(Style_n = n())
+```
+
+    ## `summarise()` has grouped output by 'State'. You can override using the
+    ## `.groups` argument.
+
+``` r
+unique_beer_state = unique_beers %>% group_by(State)%>% dplyr::summarize(Style_n = n())
+unique_beer_state = as.data.frame(unique_beer_state)
+names(population_by_state)[names(population_by_state) == 'NAME'] = 'full'
+temp_pop = merge(population_by_state,us_map_fips,'full')
+unique_percapita = merge(temp_pop,unique_beer_state,'State', 'abbr')
+unique_percapita = merge(unique_percapita,nbs_df,'State', 'abbr')
+# reduce dimension to the ones needed for the analysis
+unique_percapita = subset(unique_percapita, select = -c(SUMLEV, REGION, DIVISION, STATE, POPESTIMATE2019, PCNT_POPEST18PLUS))
+
+# calculate of unique beers per capita
+unique_percapita$percapita = unique_percapita$Style_n/(unique_percapita$POPEST18PLUS2019/1000000)
+unique_percapita = arrange(unique_percapita, percapita)
+
+# Plot the comparison of per capita vs # of breweries
+unique_percapita %>%
+ ggplot() + 
+  geom_bar(data = unique_percapita, aes(x=abbr, y=nobrews), stat="identity", fill = '#C8102E') +
+  geom_point(data = unique_percapita, aes(x=abbr, y=percapita), size = 2, color = '#061148') +
+  geom_line(data = unique_percapita, aes(x=abbr, y=percapita, lty = '# of unique beers per capita'), color = '#061148', size = 1, group = 1, na.rm = TRUE) +
+  scale_linetype('') +
+  scale_y_continuous(name = 'Number of breweries',
+                     sec.axis = sec_axis(~.*1, name = 'Number of unique beers per capita per million people')) +
+  labs(title = 'Number of unique beers per capita vs number of breweries by state',        
+       subtitle = 'Population data by Census 2019',
+       x = 'States',
+       fill = '') +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+![](AA_TT_CaseStudy1_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+\##### It seem that there is an inverse relationship between Number of
+unique beers per capita and the number of breweries. As the number of
+breweries decrease the number of unique beers per capita per million
+people increase.
+
+ 
+
 #### **Summary**
 
 ##### - Used 4 data sets for the analysis.
@@ -1474,9 +1853,9 @@ names(fav_beer_bud)[names(fav_beer_bud) == 'fips.x'] = 'fips'
 
 ##### -ND, NH and MT are the states with the highest amount of beer consumption per capita per state. Contrary to this, Budweiser have very low number of breweries in these states.
 
-##### -The total number of unique style beers produced by Budweiser is 100.
+##### -The total number of unique style beers produced by Budweiser is 99.
 
-##### -Number of unique style beers produced in Colorado: 61
+##### -Number of unique style beers produced in Colorado: 60
 
 ##### -Colorado is producting 61% of the total beer styles Budweiser has in its portfolio.
 
@@ -1516,6 +1895,8 @@ names(fav_beer_bud)[names(fav_beer_bud) == 'fips.x'] = 'fips'
 
 ##### -Budweiser is the most popular beer in 23 states.
 
+##### It seem that there is an inverse relationship between Number of unique beers per capita and the number of breweries. As the number of breweries decrease the number of unique beers per capita per million people increase.
+
  
 
 #### **Recommendations**
@@ -1527,5 +1908,7 @@ names(fav_beer_bud)[names(fav_beer_bud) == 'fips.x'] = 'fips'
 ##### 3. Study the beer styles to see if there is a need to reclassify some of the beers from IPA to Ale and vice versa based on ABV and IBU values. This could better represent product quality and beer taste which in return could result in more customers.
 
 ##### 4. I can see opportunities for Budweiser to further increase their presence in those states where their beer is the most popular by increasing the number of breweries. Budweiser has very low number of breweries in these states however consumption is the highest and Budweiser is the most popular beer: MT, SD, NH, WV, IA and SC. Further to the potential increase in sales in these states the supply chain cost may be reduced as well by local distributions.
+
+##### 5. I would suggest to analyse the relationship between the number of breweries and unique beers per capita per million people and increase the variety of beers in those states where the number of unique beers are low per capita per million people.
 
  
