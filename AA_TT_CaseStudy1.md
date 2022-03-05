@@ -1448,73 +1448,73 @@ names(fav_beer_bud)[names(fav_beer_bud) == 'fips.x'] = 'fips'
 
 #### **Summary**
 
-###### - Used 4 data sets for the analysis.
+##### - Used 4 data sets for the analysis.
 
-###### \* Beers
+##### \* Beers
 
-###### \* Breweries
+##### \* Breweries
 
-###### \* Beer Consumption by State per Capita (2021)
+##### \* Beer Consumption by State per Capita (2021)
 
-###### \* The most popular beer in every US state (2021)
+##### \* The most popular beer in every US state (2021)
 
-###### - Identified missing values in ABV and IBU as well as empty string in Style variables.
+##### - Identified missing values in ABV and IBU as well as empty string in Style variables.
 
-###### - Budweiser have 558 breweries in the United States. The top five states with the highest number of breweries are:
+##### - Budweiser have 558 breweries in the United States. The top five states with the highest number of breweries are:
 
-###### 1. CO - 47
+##### 1. CO - 47
 
-###### 2. CA - 39
+##### 2. CA - 39
 
-###### 3. MI - 32
+##### 3. MI - 32
 
-###### 4. OR - 29
+##### 4. OR - 29
 
-###### 5. TX - 28
+##### 5. TX - 28
 
-###### -ND, NH and MT are the states with the highest amount of beer consumption per capita per state. Contrary to this, Budweiser have very low number of breweries in these states.
+##### -ND, NH and MT are the states with the highest amount of beer consumption per capita per state. Contrary to this, Budweiser have very low number of breweries in these states.
 
-###### -The total number of unique style beers produced by Budweiser is 100.
+##### -The total number of unique style beers produced by Budweiser is 100.
 
-###### -Number of unique style beers produced in Colorado: 61
+##### -Number of unique style beers produced in Colorado: 61
 
-###### -Colorado is producting 61% of the total beer styles Budweiser has in its portfolio.
+##### -Colorado is producting 61% of the total beer styles Budweiser has in its portfolio.
 
-###### -Median ABV values by state are uniformly distributed and ranging between 4% and 6%.
+##### -Median ABV values by state are uniformly distributed and ranging between 4% and 6%.
 
-###### -Median IBU values by state are uniformly distributed and ranging between 22 and 57.5.
+##### -Median IBU values by state are uniformly distributed and ranging between 22 and 57.5.
 
-###### -Colorado is producing the highest alcohol content beer with 12.8%. This beer is produced in Upslope Brewing Company and it is a Belgian Style Ale.
+##### -Colorado is producing the highest alcohol content beer with 12.8%. This beer is produced in Upslope Brewing Company and it is a Belgian Style Ale.
 
-###### -Oregon is producing the most bitter beer with 138 IBU value. This beer is produced in Astoria Brewing Company and it is a Bitter Bitch Imperial IPA.
+##### -Oregon is producing the most bitter beer with 138 IBU value. This beer is produced in Astoria Brewing Company and it is a Bitter Bitch Imperial IPA.
 
-###### 1. The products alcohol content is ranging between 0.001 and 0.128
+##### 1. The products alcohol content is ranging between 0.001 and 0.128
 
-###### 2. 25% of the products alcohol content is less than or equal to 0.05
+##### 2. 25% of the products alcohol content is less than or equal to 0.05
 
-###### 3. 50% of the products alcohol content is above and below of 0.056
+##### 3. 50% of the products alcohol content is above and below of 0.056
 
-###### 4. 75% of the products alcohol content is less than or equal to 0.067
+##### 4. 75% of the products alcohol content is less than or equal to 0.067
 
-###### 5. Average alcohol content of the products is 0.059
+##### 5. Average alcohol content of the products is 0.059
 
-###### 6. Product portfolio is mostly comprised of mild alcohol content beers
+##### 6. Product portfolio is mostly comprised of mild alcohol content beers
 
-###### 7. There is no reason to believe that the ABV data set is not coming from a normal distribution.
+##### 7. There is no reason to believe that the ABV data set is not coming from a normal distribution.
 
-###### -There is a positive linear relationship between ABV and IBU. The beer alcohol content increase is associated with the bitterness. \~26% of the variance in IBU can be explained by changes in ABV.
+##### -There is a positive linear relationship between ABV and IBU. The beer alcohol content increase is associated with the bitterness. \~26% of the variance in IBU can be explained by changes in ABV.
 
-###### -Built a KNN model to investigate the difference with respect to IBU and ABV between IPAs and Ales.
+##### -Built a KNN model to investigate the difference with respect to IBU and ABV between IPAs and Ales.
 
-###### -The KNN model predicted the beer style classes with \~80% accuracy and 8.3% misclassification rate.
+##### -The KNN model predicted the beer style classes with \~80% accuracy and 8.3% misclassification rate.
 
-###### -This KNN model generalizes well on this data set and we can conclude that ABV and IBU are good verables predicting the sytle of the beers.
+##### -This KNN model generalizes well on this data set and we can conclude that ABV and IBU are good verables predicting the sytle of the beers.
 
-###### -The model predicts ALEs with IBU above 95 and ABV above 0.06 as IPA. It seems like that a more bitter and stringer beer would represent IPA rather than ALE for the model. IPAs are predicted more consistantly however some of the lower alcohol content and lower IBU IPAs are predicted as ALEs.
+##### -The model predicts ALEs with IBU above 95 and ABV above 0.06 as IPA. It seems like that a more bitter and stringer beer would represent IPA rather than ALE for the model. IPAs are predicted more consistantly however some of the lower alcohol content and lower IBU IPAs are predicted as ALEs.
 
-###### -Built a Naive Bayes model for the prediction but the model performance was not as good as the KNN one therefore I did not pursue this model further.
+##### -Built a Naive Bayes model for the prediction but the model performance was not as good as the KNN one therefore I did not pursue this model further.
 
-###### -Budweiser is the most popular beer in 23 states.
+##### -Budweiser is the most popular beer in 23 states.
 
  
 
