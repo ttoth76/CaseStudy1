@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # Aundrae Allison, Tamas Toth - SMU Case study brewery analysis
 
 ## MSDS 6306: Doing Data Science
