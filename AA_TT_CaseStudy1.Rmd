@@ -5,11 +5,23 @@ date: '03/05/2022'
 #output: rmarkdown::github_document
 #always_allow_html: true
 output:
-  html_document:
-    theme: cerulean
-    highlight: textmate
+  #html_document:
+    #theme: cerulean
+    #highlight: textmate
   github_document:
-    always_allow_html: true
+  toc: FALSE
+  toc_depth: 3
+  fig_width: 7
+  fig_height: 5
+  dev: "png"
+  df_print: "default"
+  includes: NULL
+  md_extensions: NULL
+  hard_line_breaks: TRUE
+  pandoc_args: NULL
+  html_preview: TRUE
+  keep_html: FALSE
+always_allow_html: true
 editor_options: 
   chunk_output_type: console
 ---
@@ -174,7 +186,8 @@ $~$
 
 ```{r results='asis', echo=FALSE}
 nbs_df = arrange(nbs_df, desc(nobrews))
-rmarkdown::paged_table(nbs_df)
+#rmarkdown::paged_table(nbs_df)
+knitr::kable(head(nbs_df, n=10), "html")
 #head(nbs_df, n=10)
 ```
 
