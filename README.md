@@ -37,7 +37,7 @@ follows.
 -  fav_beer: The name of the favorite beer for the state
 
 
-Intention is to answer the below questions through Exploratory Data Analysis and Machine Learning Modeling to help Budweiser to drive potential business opportunities in the United States.
+#### Intention is to answer key business questions through Exploratory Data Analysis and Machine Learning Modeling to help Budweiser to drive potential business opportunities in the United States. The Analysis is focusing on beers and breweries as well as relationship to consumers.
 
 
 __Analysis Questions:__
