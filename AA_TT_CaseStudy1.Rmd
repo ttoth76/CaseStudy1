@@ -2,8 +2,11 @@
 title: "Beers and Breweries Analysis Case Study 1"
 author: "Tamas Toth"
 date: '03/05/2022'
-output: rmarkdown::github_document
-always_allow_html: true
+#output: rmarkdown::github_document
+#always_allow_html: true
+output:
+  html_document:
+    keep_md: yes
 editor_options: 
   chunk_output_type: console
 ---
@@ -276,7 +279,7 @@ $~$
 
 #### Extra insight about number of uniqe beers produced by Budweiser and contrasting it with the state where the highest number of breweries are.
 
-```{r total_uniq_style, prod_co, echo=FALSE, results='asis'}
+```{r total_uniq_style, prod_co, results='asis'}
 # Number of unique bear styles and how many of these are from Colorado where the highest number of breweries are
 most_brew = brew_beers[brew_beers$State == 'CO',]
 total_uniq_style = sum(count(unique(brew_beers$Style))[2])
