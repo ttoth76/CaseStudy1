@@ -7,6 +7,10 @@ date: '03/05/2022'
 output:
   html_document:
     keep_md: yes
+    theme: cerulean
+    highlight: textmate
+  github_document:
+    always_allow_html: true
 editor_options: 
   chunk_output_type: console
 ---
@@ -171,7 +175,8 @@ $~$
 
 ```{r results='asis', echo=FALSE}
 nbs_df = arrange(nbs_df, desc(nobrews))
-paged_table(nbs_df)
+rmarkdown::paged_table(nbs_df)
+#head(nbs_df, n=10)
 ```
 
 $~$
