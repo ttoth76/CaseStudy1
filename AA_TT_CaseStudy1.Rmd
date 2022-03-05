@@ -12,13 +12,14 @@ editor_options:
 
 $~$
 
-### __Introduction__
+### **Introduction**
+
 #### Intention is to answer key business questions through Exploratory Data Analysis and Machine Learning Modeling to help Budweiser to drive potential business opportunities in the United States. The Analysis is focusing on beers and breweries as well as relationship to consumers.
 
 $~$
 
-
 #### Loading the necessary R libraries for the analysis
+
 ```{r message = FALSE}
 # Load the necessary libraries
 library(knitr)
@@ -45,15 +46,16 @@ library(stringr)
 library(sjPlot)
 library(data.table)
 ```
+
 ```{r}
 # Set random seed
 set.seed(329)
 ```
 
-
 $~$
 
 ##### Reference for reproducible reseach
+
 ```{r}
 sessionInfo()
 ```
@@ -61,6 +63,7 @@ sessionInfo()
 $~$
 
 ##### Read the data files
+
 ```{r}
 #Read the files
 beers = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/Beers.csv', 
@@ -80,15 +83,18 @@ favorite_beer = read.csv(file = '/Users/ttoth76/Downloads/CaseStudy1/fav_beer_st
 $~$
 
 ##### Data Preparation
+
 ```{r}
 # verify missing values & white spaces
 sapply(breweries, function(x) sum(is.na(x)))
 ```
+
 There are no missing values in the 'breweries' data set.
 
 ```{r}
 sapply(beers, function(x) sum(is.na(x)))
 ```
+
 There are 62 missing values in the ABV and 1005 missing values in the IBU variable in the 'beers' data set.
 
 ```{r}
@@ -106,6 +112,7 @@ favorite_beer$fav_beer = sub(pattern = pattern, replacement = replacement, x=fav
 $~$
 
 #### Q1: How many breweries are present in each state?
+
 ```{r message = FALSE, warning = FALSE}
 # How many breweries are present in each state?
 nbs = breweries %>% group_by(State) %>% dplyr::summarise(nobrews = n())
@@ -151,8 +158,10 @@ plot_usmap(data = nbs_map_data_sf, values = "nobrews", regions = "states",
              seed = 1002) 
 ```
 
-#### Calculated the # of breweries and prepared the data to be displayed on a map. 
+#### Calculated the \# of breweries and prepared the data to be displayed on a map.
+
 #### A1: Budweiser has the most number of breweries in Colorado followed by states on the west and east coast. The number of breweries are declining as we depart from the coastal areas. Strategically placing breweries can help winning on the very competitive beer market.
+
 #### Please note that 51 states are listed because D.C. is considered as a separate state in the data set. For this analysis we assumed that D.C. is indeed a separate state and Budweiser would like to see the analysis like that.
 
 $~$
@@ -166,8 +175,10 @@ paged_table(nbs_df)
 
 $~$
 
-##### Additional insight about beer consumption by state per capita in 2021. Purpose is to contrast the states with the highest # of breweries with the states consuming the highest amount of beer per capita.
-##### data source: https://beerinfo.com/beer-consumption-by-state-per-capita/
+##### Additional insight about beer consumption by state per capita in 2021. Purpose is to contrast the states with the highest \# of breweries with the states consuming the highest amount of beer per capita.
+
+##### data source: <https://beerinfo.com/beer-consumption-by-state-per-capita/>
+
 ```{r}
 
 # Additional insight about beer consumption by state per capita in 2021
@@ -184,11 +195,12 @@ plot_usmap(data = consumption, values = "consumption", regions = "states",
   theme(panel.background=element_blank())
 ```
 
-##### A: Based on the 3rd party data set the highest amount of beer consumption per capita by states can be observed in North Dakota, Montana and New Hampshire. Budweiser has a very low number of breweries in these states therefore these states potentially provide an opportunity to grow business and address industry production challenges. 
+##### A: Based on the 3rd party data set the highest amount of beer consumption per capita by states can be observed in North Dakota, Montana and New Hampshire. Budweiser has a very low number of breweries in these states therefore these states potentially provide an opportunity to grow business and address industry production challenges.
 
 $~$
 
 #### Q2: Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.
+
 ```{r}
 # Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.  
 
@@ -204,19 +216,23 @@ names(brew_beers)[names(brew_beers) == 'Name.y'] = 'Beer_Name'
 ```
 
 #### First 6 observations
+
 ```{r}
 head(brew_beers, n=6)
 ```
 
 #### Last 6 observations
+
 ```{r}
 tail(brew_beers, n=6)
 ```
+
 #### A2: Merged the data from both data sets and renamed some of the fetures to more meaningful names. The key I used for the merge is: 'Brewery_id'.
 
 $~$
 
 #### Q3: Address the missing values in each column.
+
 ```{r}
 # Address the missing values in each column (NA as well as empty strings).
 sapply(brew_beers, function(x) sum(is.na(x)))
@@ -247,15 +263,21 @@ brew_beers = brew_beers %>%
 # convert the tibble to data frame
 brew_beers = as.data.frame(brew_beers)
 ```
-#### A3: There are 62 ABV and 1005 IBU missing values (NA) in the dataset. There are 5 empty strings in the 'Style' vaiable in the dataset. 
+
+#### A3: There are 62 ABV and 1005 IBU missing values (NA) in the dataset. There are 5 empty strings in the 'Style' vaiable in the dataset.
+
 ##### 1. I have imputed the most frequent beer style (mode) for the 5 empty string in 'Style'.
-##### 2. I have imputed median value for IBU by Style group and did the same median imputation for ABV. 
+
+##### 2. I have imputed median value for IBU by Style group and did the same median imputation for ABV.
+
 ##### 3. I assume the IBU and ABV values are more similar in each style group therefore the values are more representative than taking the median of the entire distribution and imputing that.
+
 ##### 4. The median is robust to outliers therefore it is a better statistic for this data set than mean would be.
 
 $~$
 
 #### Extra insight about number of uniqe beers produced by Budweiser and contrasting it with the state where the highest number of breweries are.
+
 ```{r total_uniq_style, prod_co, echo=FALSE, results='asis'}
 # Number of unique bear styles and how many of these are from Colorado where the highest number of breweries are
 most_brew = brew_beers[brew_beers$State == 'CO',]
@@ -269,6 +291,7 @@ cat(paste0("Colorado is producting ", prod_co/total_uniq_style*100, "% of the to
 $~$
 
 #### Q4: Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
+
 ```{r}
 # Compute the median alcohol content and international bitterness unit for each state. 
 # Plot a bar chart to compare.
@@ -304,12 +327,12 @@ ggplot(ABV_IBU_State, aes(x=State, y = IBU_name)) +
 ```
 
 #### A4: The median alcohol content varies by state. The lowest alcohol content is 0.04 in UT. The highest alcohol content is 0.06. The median alcohol content has no large variation among the states. Budweiser is producing miled alcohol content beers.
-#### The median IBU values are very uniform, at around 35. The lowest is 22 in KS and the highest is 57.5 in WV. There were a lot of IBU values missing from the data set and median values were imputed based on Sytle groups. This could potentially result to this uniform values of 35 per states.  
+
+#### The median IBU values are very uniform, at around 35. The lowest is 22 in KS and the highest is 57.5 in WV. There were a lot of IBU values missing from the data set and median values were imputed based on Sytle groups. This could potentially result to this uniform values of 35 per states.
 
 $~$
 
 #### Q5: Which state has the maximum alcoholic (ABV) beer?
-
 
 ```{r}
 #Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
@@ -355,12 +378,14 @@ plot_usmap(data = max_abv, values = "ABV",include = c("CO"),labels = FALSE, labe
              seed = 1002)
 ```
 
-#####  Calculated the median ABV values and displayed them on the map of the respective state.
+##### Calculated the median ABV values and displayed them on the map of the respective state.
+
 #### A5: Colorado is producing the highest alcohol content beer with 12.8%. This beer is produced in Upslope Brewing Company and it is a Belgian Style Ale.
 
 $~$
 
 #### Q5: Which state has the most bitter (IBU) beer?
+
 ```{r}
 
 #display the max IBU state on the map
@@ -399,7 +424,8 @@ ggrepel::geom_label_repel(data = max_ibu,
              seed = 1002) 
 ```
 
-#####  Calculated the median IBU values and displayed them on the map of the respective state.
+##### Calculated the median IBU values and displayed them on the map of the respective state.
+
 #### A5: Oregon is producing the most bitter beer with 138 IBU value. This beer is produced in Astoria Brewing Company and it is a Bitter Bitch Imperial IPA.
 
 $~$
@@ -419,16 +445,22 @@ points(means,col="yellow",pch=18)
 ```
 
 ##### Created a histogram and boxplot for ABV values as well as a summary statistics.
+
 #### A6:
+
 #### 1. Alcohol content is ranging between 0.001 and 0.128
+
 #### 2. 25% of the products alcohol content is less than or equal to 0.05
+
 #### 3. 50% of the products alcohol content is above and below of 0.056
+
 #### 4. 75% of the products alcohol content is less than or equal to 0.067
 
 #### 5. Average alcohol content of the products is 0.059
-#### 6. Product portfolio is mostly comprised of mild alcohol content beers
-#### 7. There is no reason to believe that the ABV data set is not coming from a normal distribution.
 
+#### 6. Product portfolio is mostly comprised of mild alcohol content beers
+
+#### 7. There is no reason to believe that the ABV data set is not coming from a normal distribution.
 
 $~$
 
@@ -451,13 +483,12 @@ print(paste0('The persoan correlation coefficient is: ',  pearson_r))
 ```
 
 ##### Built a scatterplot with a regression line.
-#### A7: Visualy inspecting the scatterplot we can conclude that there is a positive linear relationship between ABV and IBU. The beer alcohol content increase is associated with the bitternes. ~26% of the variance in IBU can be explained by changes in ABV. 
 
+#### A7: Visualy inspecting the scatterplot we can conclude that there is a positive linear relationship between ABV and IBU. The beer alcohol content increase is associated with the bitternes. \~26% of the variance in IBU can be explained by changes in ABV.
 
 $~$
 
 #### Q8: Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with "Ale" in its name other than IPA). You decide to use KNN classification to investigate this relationship. Provide statistical evidence one way or the other.
-
 
 ```{r}
 # Budweiser would also like to investigate the difference with respect to IBU and ABV # between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its 
@@ -494,10 +525,13 @@ test = data_for_modeling[-train_70,]
 ```
 
 ###### Prepared data set for the KNN model and filtered for IPAs and Ales using regex.
+
 ###### Standardized the data for the KNN model.
+
 ###### 70/30 split of the data set to train the models:
 
 ##### Let's test the variance of the ABV and IBU variables.
+
 ```{r}
 #Test EQUAL VARIANCE with boxplot
 par(mfrow=c(1,2))
@@ -505,21 +539,24 @@ hist(data_for_modeling$ABV, main = 'ABV distribution', col ="#C8102E", xlab = 'A
 hist(data_for_modeling$IBU, main = 'IBU distribution', col ="#C8102E", xlab = 'International Bitternes Unit')
 ```
 
-##### We can observe that the standard deviations are different. Earlier we have seen that we have enough sample size that CLT applies therefore we can assume normality. We can also assume independence. 
+##### We can observe that the standard deviations are different. Earlier we have seen that we have enough sample size that CLT applies therefore we can assume normality. We can also assume independence.
+
 #### I will run a Welch's two-sample t-test to see if the mean IBU and ABV values are equal or different. This will help drawing statistical conclusion about the importance of the variables predecting the Syle of beer. If we don't find statistical significance than it will mean that the variables are not good predictors for beer style and thus there is no reason to run a KNN model.
 
 $~$
 
 #### A two sample t-test to prove difference between ABV and IBU
+
 ```{r}
 t.test(data_for_modeling$ABV, data_for_modeling$IBU, alternative = 'two.sided', var.equal = FALSE)
 ```
-##### We have enough evidence to suggest that the IBU and ABV mean values are different and thus these two variables are good predictors for beer Style. (p-value < 2.2e-16 ) 
 
+##### We have enough evidence to suggest that the IBU and ABV mean values are different and thus these two variables are good predictors for beer Style. (p-value \< 2.2e-16 )
 
 $~$
 
 #### Solution using KNN model
+
 ```{r}
 # Solution with KNN model
 # Let's determine the best k value first based on accuracy
@@ -537,14 +574,19 @@ best_k = which.max(Accuracy_matrix)
 fit = knn(train[,c("Z_ABV", "Z_IBU")], test[,c("Z_ABV", "Z_IBU")], train$Style, k = best_k, prob = FALSE)
 confusionMatrix(table(fit, test$Style))
 ```
+
 ##### As a first step I standardized the data because there is a 100 fold difference between ABV and IBU which impacts the distnce calculation for the KNN model.
+
 ##### I have tuned the KNN model by finding the most optimal k-value by selecting the one with the highest Accuracy value out of 100 iterations.
-##### Based on the confusion matrix above, we have been able to correctly classify 243 Ale and 127 IPA style beers. Overall accuracy of the prediction is ~80% which underpins the previous conclusions about ABV and IBU are being good predictors to determin the style of the beer.
+
+##### Based on the confusion matrix above, we have been able to correctly classify 243 Ale and 127 IPA style beers. Overall accuracy of the prediction is \~80% which underpins the previous conclusions about ABV and IBU are being good predictors to determin the style of the beer.
+
 ##### The misclassification rate is 38/460 = 0.083 (8.3%).
 
 $~$
 
 #### Let's plot the KNN classes to gain further insights about the difference.
+
 ```{r}
 # Plot predicted values
 plot.df = data.frame(test, predicted = fit)
@@ -577,20 +619,25 @@ ggarrange(orig_labels,predict_plot,
 
 ```
 
-##### __Observations__: Original labeled data
-##### __Predictions__: The labels predicted by the KNN model based on ABV and IBU values
-##### Visually comparing the Observations and Predictions we can observe that the KNN model is predicting the lables fairly well and the model is generalizing well for this data set. 
+##### **Observations**: Original labeled data
+
+##### **Predictions**: The labels predicted by the KNN model based on ABV and IBU values
+
+##### Visually comparing the Observations and Predictions we can observe that the KNN model is predicting the lables fairly well and the model is generalizing well for this data set.
+
 ##### The model predicts ALEs with IBU above 95 and ABV above 0.06 as IPA. It seems like that a more bitter and stringer beer would represent IPA rather than ALE for the model. IPAs are predicted more consistantly however some of the lower alcohol content and lower IBU IPAs are predicted as ALEs.
 
 $~$
 
 #### Let's look at Naive Bayes model prediction to compare perfomrance with the KNN model.
+
 ```{r}
 # Solution with NB model
 model = naiveBayes(train[,c('ABV','IBU')],train$Style)
   CM = confusionMatrix(table(predict(model, test[,c('ABV','IBU')], type = 'class'), test$Style))
   CM
 ```
+
 ##### The accuracy of the NB model is not as good as the KNN model so I will not investigate this solution further.
 
 $~$
@@ -599,7 +646,8 @@ $~$
 
 $~$
 
-##### States where Budweiser is the most popular beer vs. # of breweries vs. highest beer consumprion
+##### States where Budweiser is the most popular beer vs. \# of breweries vs. highest beer consumprion
+
 ```{r}
 # 3rd party data set from https://www.thedrinksbusiness.com/2021/10/the-most-popular-beer-in-every-us-state/
 fav_beer_bud = filter(fav_beer_df, fav_beer == 'Budweiser')
@@ -624,52 +672,89 @@ names(fav_beer_bud)[names(fav_beer_bud) == 'fips.x'] = 'fips'
 ```
 
 ##### Plot those states only where Budweiser is the most popular.
-##### Budweiser is a most popular beer in 23 states. Based on this map I can see opportunities for Budweiser to further increase their presence in those states where their beer is the most popular by increasing the number of breweries. Budweiser has very low number of breweries in these states however consumption is the highest and Budweiser is the most popular beer: MT, SD, NH, WV, IA and SC. Further to the potential increase in sales in these states the supply chain cost may be reduced as well by local distributions. 
+
+##### Budweiser is a most popular beer in 23 states. Based on this map I can see opportunities for Budweiser to further increase their presence in those states where their beer is the most popular by increasing the number of breweries. Budweiser has very low number of breweries in these states however consumption is the highest and Budweiser is the most popular beer: MT, SD, NH, WV, IA and SC. Further to the potential increase in sales in these states the supply chain cost may be reduced as well by local distributions.
 
 $~$
 
-#### __Summary__
-###### - Used 4 data sets for the analysis. 
-######   * Beers
-######   * Breweries
-######   * Beer Consumption by State per Capita (2021)
-######   * The most popular beer in every US state (2021)
+#### **Summary**
+
+###### - Used 4 data sets for the analysis.
+
+###### \* Beers
+
+###### \* Breweries
+
+###### \* Beer Consumption by State per Capita (2021)
+
+###### \* The most popular beer in every US state (2021)
 
 ###### - Identified missing values in ABV and IBU as well as empty string in Style variables.
+
 ###### - Budweiser have 558 breweries in the United States. The top five states with the highest number of breweries are:
+
 ###### 1. CO - 47
+
 ###### 2. CA - 39
+
 ###### 3. MI - 32
+
 ###### 4. OR - 29
+
 ###### 5. TX - 28
-###### -ND, NH and MT are the states with the highest amount of beer consumption per capita per state. Contrary to this, Budweiser have very low number of breweries in these states. 
+
+###### -ND, NH and MT are the states with the highest amount of beer consumption per capita per state. Contrary to this, Budweiser have very low number of breweries in these states.
+
 ###### -The total number of unique style beers produced by Budweiser is 100.
+
 ###### -Number of unique style beers produced in Colorado: 61
+
 ###### -Colorado is producting 61% of the total beer styles Budweiser has in its portfolio.
+
 ###### -Median ABV values by state are uniformly distributed and ranging between 4% and 6%.
+
 ###### -Median IBU values by state are uniformly distributed and ranging between 22 and 57.5.
+
 ###### -Colorado is producing the highest alcohol content beer with 12.8%. This beer is produced in Upslope Brewing Company and it is a Belgian Style Ale.
+
 ###### -Oregon is producing the most bitter beer with 138 IBU value. This beer is produced in Astoria Brewing Company and it is a Bitter Bitch Imperial IPA.
+
 ###### 1. The products alcohol content is ranging between 0.001 and 0.128
+
 ###### 2. 25% of the products alcohol content is less than or equal to 0.05
+
 ###### 3. 50% of the products alcohol content is above and below of 0.056
+
 ###### 4. 75% of the products alcohol content is less than or equal to 0.067
+
 ###### 5. Average alcohol content of the products is 0.059
+
 ###### 6. Product portfolio is mostly comprised of mild alcohol content beers
+
 ###### 7. There is no reason to believe that the ABV data set is not coming from a normal distribution.
-###### -There is a positive linear relationship between ABV and IBU. The beer alcohol content increase is associated with the bitterness. ~26% of the variance in IBU can be explained by changes in ABV.
+
+###### -There is a positive linear relationship between ABV and IBU. The beer alcohol content increase is associated with the bitterness. \~26% of the variance in IBU can be explained by changes in ABV.
+
 ###### -Built a KNN model to investigate the difference with respect to IBU and ABV between IPAs and Ales.
-###### -The KNN model predicted the beer style classes with ~80% accuracy and 8.3% misclassification rate.
+
+###### -The KNN model predicted the beer style classes with \~80% accuracy and 8.3% misclassification rate.
+
 ###### -This KNN model generalizes well on this data set and we can conclude that ABV and IBU are good verables predicting the sytle of the beers.
+
 ###### -The model predicts ALEs with IBU above 95 and ABV above 0.06 as IPA. It seems like that a more bitter and stringer beer would represent IPA rather than ALE for the model. IPAs are predicted more consistantly however some of the lower alcohol content and lower IBU IPAs are predicted as ALEs.
+
 ###### -Built a Naive Bayes model for the prediction but the model performance was not as good as the KNN one therefore I did not pursue this model further.
-###### -Budweiser is the most popular beer in 23 states. 
+
+###### -Budweiser is the most popular beer in 23 states.
 
 $~$
 
-#### __Recommendation__
-##### 1. There is an opportunity to increse data quality for the ABV and IBU variables.
-##### 2. I recommend Budweiser to carry out a market analysis in ND, NH, and MT to better understand potential market opportunities to increase sales given the high amount of beer consumption in these states.
-##### 3. Study the beer styles to see if there is a need to reclassify some of the beers from IPA to Ale and vice versa based on ABV and IBU values. This could better represent product quality and beer taste which in return could result in more customers. 
-##### 4. I can see opportunities for Budweiser to further increase their presence in those states where their beer is the most popular by increasing the number of breweries. Budweiser has very low number of breweries in these states however consumption is the highest and Budweiser is the most popular beer: MT, SD, NH, WV, IA and SC. Further to the potential increase in sales in these states the supply chain cost may be reduced as well by local distributions.
+#### **Recommendation**
 
+##### 1. There is an opportunity to increse data quality for the ABV and IBU variables.
+
+##### 2. I recommend Budweiser to carry out a market analysis in ND, NH, and MT to better understand potential market opportunities to increase sales given the high amount of beer consumption in these states.
+
+##### 3. Study the beer styles to see if there is a need to reclassify some of the beers from IPA to Ale and vice versa based on ABV and IBU values. This could better represent product quality and beer taste which in return could result in more customers.
+
+##### 4. I can see opportunities for Budweiser to further increase their presence in those states where their beer is the most popular by increasing the number of breweries. Budweiser has very low number of breweries in these states however consumption is the highest and Budweiser is the most popular beer: MT, SD, NH, WV, IA and SC. Further to the potential increase in sales in these states the supply chain cost may be reduced as well by local distributions.
